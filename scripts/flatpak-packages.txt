@@ -1,0 +1,3 @@
+org.signal.Signal
+com.discordapp.Discord
+com.spotify.Client
