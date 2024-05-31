@@ -1,8 +1,11 @@
 
 ## About:
-Inspired by https://github.com/smittix/fedorable, I have created own version from scratch, tailored for my needs.
+You know the feeling when you have to re-install system as something broke, remembering what you have installed and how it was setup ?
+Here is an easy way to put together all nessecery steps to bring your system where it was.
 
-A easy-to-use way to install all nessecery packages and setup system based on your own needs.
+Inside /scripts/submenu_template.sh there is a template example how to create simple sub menu tailored for your own needs.
+
+Inspired by https://github.com/smittix/fedorable, intially forked but then, I have created own version from scratch.
 
 ## Usage
 1. Set the script to be executable `chmod -x init_system.sh`
