@@ -1,11 +1,12 @@
 
 ## About:
 You know the feeling when you have to re-install system as something broke, remembering what you have installed and how it was setup ?
-Here is an easy way to put together all nessecery steps to bring your system where it was.
+Here is an easy way to put together all nessecery steps to bring your system where it was, based on Thomas E. Dickey [dialog package](https://invisible-island.net/dialog).
+
 
 Inside /scripts/submenu_template.sh there is a template example how to create simple sub menu tailored for your own needs.
 
-Inspired by https://github.com/smittix/fedorable, intially forked but then, I have created own version from scratch.
+Inspired by [fedorable](https://github.com/smittix/fedorable), intially forked but then, I have created own version from scratch.
 
 ## Usage
 1. Set the script to be executable `chmod -x init_system.sh`
