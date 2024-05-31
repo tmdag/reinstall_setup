@@ -28,6 +28,6 @@ Inspired by https://github.com/smittix/fedorable, intially forked but then, I ha
 ## Screenshot
 ![Screenshot](screenshot_main_menu.png)
 ![Screenshot](screenshot_gfx_software.png)
-![Screenshot](screenshot_dnf_package)
+![Screenshot](screenshot_dnf_package.png)
 ![Screenshot](screenshot_file_edit.png)
 ![Screenshot](screenshot_utilities.png)
