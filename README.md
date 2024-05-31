@@ -22,10 +22,12 @@ Inspired by https://github.com/smittix/fedorable, intially forked but then, I ha
 
 ## Files
 
-- **flatpak-packages.txt** - This file contains a list of all flat packages to install you can customise this with your choice of applications by application-id.
+- **flatpak-packages.txt** - This file contains a list of all flat packages to install you can customise this manually or directly via app.
 - **dnf-packages.txt** - This file contains a list of all applications that will be installed in a format of "@repository package_name".
 
 ## Screenshot
 ![Screenshot](screenshot_main_menu.png)
 ![Screenshot](screenshot_gfx_software.png)
+![Screenshot](screenshot_dnf_package)
 ![Screenshot](screenshot_file_edit.png)
+![Screenshot](screenshot_utilities.png)
