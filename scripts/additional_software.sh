@@ -1,42 +1,8 @@
 #!/bin/bash
 
-install_all_additional_packages() {
-    echo "Installing ALL Software"
-    install_1password
-    install_sublime_text
-    install_vscode
-    install_google_chrome
-    install_audacity
-    install_vorta_borg_backup
-    install_system_tools
-    notify "All additional software installation complete!"
-}
-
-
-
-# Function to check if a package is installed and install it if not
-install_package_if_needed() {
-    local package=$1
-    echo "Checking if $package is installed..."
-
-    if rpm -q $package &> /dev/null; then
-        echo "$package is already installed."
-    else
-        echo "$package is not installed. Installing it now..."
-        sudo dnf install -y $package
-        if [ $? -eq 0 ]; then
-            echo "$package installation complete"
-            notify "$package installation complete"
-        else
-            echo "Failed to install $package"
-            notify "Failed to install $package"
-            exit 1
-        fi
-    fi
-}
-
 install_1password() {
-    echo "Installing 1Password"
+    clear
+    log_action "Installing 1Password"
 
     # Define the repository configuration
     REPO_FILE="/etc/yum.repos.d/1password.repo"
@@ -50,20 +16,22 @@ gpgkey=https://downloads.1password.com/linux/keys/1password.asc"
 
     # Check if the repository file already exists
     if [ -f "$REPO_FILE" ]; then
-        echo "Repository file $REPO_FILE already exists."
+        log_action "Repository file $REPO_FILE already exists."
     else
         # Create the repository file
         echo "$REPO_CONTENT" | sudo tee "$REPO_FILE" > /dev/null
-        echo "Repository file $REPO_FILE created."
+        notify "Repository file $REPO_FILE created."
     fi
 
     # Use the function to install 1Password if needed
-    install_package_if_needed "1password"
+    sudo dnf install -y 1password &>> $LOG_FILE
+    log_action "installation of 1password complete"
 }
 
 
 install_sublime_text() {
-    echo "Installing Sublime Text"
+    clear
+    log_action "Installing Sublime Text"
 
     # Define the repository configuration
     REPO_FILE="/etc/yum.repos.d/sublime-text.repo"
@@ -76,19 +44,21 @@ gpgkey=https://download.sublimetext.com/sublimehq-rpm-pub.gpg"
 
     # Check if the repository file already exists
     if [ -f "$REPO_FILE" ]; then
-        echo "Repository file $REPO_FILE already exists."
+        log_action "Repository file $REPO_FILE already exists."
     else
         # Create the repository file
         echo "$REPO_CONTENT" | sudo tee "$REPO_FILE" > /dev/null
-        echo "Repository file $REPO_FILE created."
+        notify "Repository file $REPO_FILE created."
     fi
 
     # Install Sublime Text
-    install_package_if_needed sublime-text 
+    sudo dnf install -y  sublime-text  &>> $LOG_FILE
+    log_action "installation of Sublime Text complete"
 }
 
 install_vscode() {
-    echo "Installing Visual Studio Code"
+    clear
+    log_action "Installing Visual Studio Code"
 
     # Define the repository configuration
     REPO_FILE="/etc/yum.repos.d/vscode.repo"
@@ -101,19 +71,21 @@ gpgkey=https://packages.microsoft.com/keys/microsoft.asc"
 
     # Check if the repository file already exists
     if [ -f "$REPO_FILE" ]; then
-        echo "Repository file $REPO_FILE already exists."
+        log_action "Repository file $REPO_FILE already exists."
     else
         # Create the repository file
         echo "$REPO_CONTENT" | sudo tee "$REPO_FILE" > /dev/null
-        echo "Repository file $REPO_FILE created."
+        notify "Repository file $REPO_FILE created."
     fi
 
     # Install Visual Studio Code
-    install_package_if_needed code
+    sudo dnf install -y  code &>> $LOG_FILE
+    log_action "Installatio of VScode complete"
 }
 
 install_google_chrome() {
-    echo "Installing Google Chrome"
+    clear
+    log_action "Installing Google Chrome"
 
     # Define the repository configuration
     REPO_FILE="/etc/yum.repos.d/google-chrome.repo"
@@ -126,73 +98,85 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub"
 
     # Check if the repository file already exists
     if [ -f "$REPO_FILE" ]; then
-        echo "Repository file $REPO_FILE already exists."
+        log_action "Repository file $REPO_FILE already exists."
     else
         # Create the repository file
         echo "$REPO_CONTENT" | sudo tee "$REPO_FILE" > /dev/null
-        echo "Repository file $REPO_FILE created."
+        notify "Repository file $REPO_FILE created."
     fi
 
     # Install Google Chrome
-    install_package_if_needed google-chrome-stable
+    sudo dnf install -y google-chrome-stable &>> $LOG_FILE
+    log_action "Installation of Google Chrome complete!"
 }
 
 
 install_audacity() {
-    echo "Installing Gimp, obs-studio"
-    install_package_if_needed audacity.x86_64
+    clear
+    log_action "Installing Audacity"
+    sudo dnf install -y audacity.x86_64 &>> $LOG_FILE
+    log_action "Installation fo Audacity complete"
 }
 
 install_vorta_borg_backup() {
-	echo "Installing Vorta, Borg Backup system ui"
-	install_package_if_needed vorta.noarch
+    clear
+	log_action "Installing Vorta and Borg Backup"
+	sudo dnf install -y vorta.noarch borgbackup &>> $LOG_FILE
+    log_action "Installation of Vorta and Borg Backup complete"
 }
 
 install_system_tools() {
-	echo "Installing system tools"
-	echo "htop, tree, gparted, conda"
-	sudo dnf install -y htop.x86_64 tree.x86_64 gparted.x86_64 conda.noarch
-    notify "Installation of system tools complete"
+    clear
+	log_action "Installing system tools (htop, nvtop, tree, gparted, conda)"
+	sudo dnf install -y btop nvtop htop tree gparted conda &>> $LOG_FILE
+    log_action "Installation of system tools complete"
 }
 
 
+install_selected_packages() {
+    local selections=("$@")
+    for selection in "${selections[@]}"; do
+        case $selection in
+            1) install_1password ;;
+            2) install_sublime_text ;;
+            3) install_vscode ;;
+            4) install_google_chrome ;;
+            5) install_audacity ;;
+            6) install_vorta_borg_backup ;;
+            7) install_system_tools ;;
+        esac
+    done
+    notify "Selected software installation complete!"
+}
 
-# Options for the Core System submenu
-ADDITIONAL_SOFT_OPTIONS=(
-    1 "Install all additional packages"
-    2 "Install 1password"
-    3 "Install sublime text"
-    4 "Install vscode"
-    5 "Install google chrome"
-    6 "Install audacity"
-    7 "Install vorta borg backup"
-    8 "Install system tools"
-    9 "Back to Main Menu"
-)
 
 # Function to display the Core System submenu
 install_additional_software() {
     while true; do
-        CORE_CHOICE=$(dialog --clear \
-                        --backtitle "$BACKTITLE" \
-                        --title "Core System" \
-                        --menu "Select a core system task:" \
-                        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                        "${ADDITIONAL_SOFT_OPTIONS[@]}" \
-                        2>&1 >/dev/tty)
+        local selections
+        selections=$(dialog --clear \
+                    --ok-label "install selected" --cancel-label "Back" \
+                    --backtitle "$BACKTITLE" \
+                    --title "Additional software installation" \
+                    --checklist "Select Software to be installed" \
+                    20 80 10 \
+                    1 "1Password                " on \
+                    2 "Sublime Text             " on \
+                    3 "Visual Studio Code       " on \
+                    4 "Google Chrome            " on \
+                    5 "Audacity                 " on \
+                    6 "Vorta Borg Backup        [UI for Borg Backup system]" on \
+                    7 "System Tools             [btop, nvtop, htop, tree, gparted, conda]" on \
+                    3>&1 1>&2 2>&3 3>&-)
 
-        clear
-        case $CORE_CHOICE in
-            1) install_all_additional_packages ;;
-            2) install_1password ;;
-            3) install_sublime_text ;;
-            4) install_vscode ;;
-            5) install_google_chrome ;;
-            6) install_audacity ;;
-            7) install_vorta_borg_backup ;;
-            8) install_system_tools ;;
-            9) break ;;
-            *) log_action "Invalid option selected: $CORE_CHOICE";;
-        esac
+        exit_status=$?
+
+        if [ $exit_status -ne 0 ]; then
+            break
+        fi
+
+        selections=($(echo $selections | tr -d '"'))
+        log_action "Selected options: ${selections[*]}"
+        install_selected_packages "${selections[@]}"
     done
 }

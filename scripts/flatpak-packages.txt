@@ -1,3 +1,9 @@
-org.signal.Signal
 com.discordapp.Discord
+com.rafaelmardojai.Blanket
+com.slack.Slack
 com.spotify.Client
+fr.natron.Natron
+hu.irl.cameractrls
+io.github.hrkfdn.ncspot
+org.signal.Signal
+org.videolan.VLC

@@ -14,17 +14,17 @@ source ./create_mplay_desktop.sh
 
 # Options for the Core System submenu
 MISC_SETTINGS_OPTIONS=(
-    1 "Add SideFX mplay to desktop"
+    1 "Add SideFX mplay to desktop       [ Finds Houdini in /opt/hfs and links mplay ]"
     3 "Back to Main Menu"
 )
 
 # Function to display the Core System submenu
 misc_settings() {
     while true; do
-        CORE_CHOICE=$(dialog --clear \
+        CORE_CHOICE=$(dialog --clear --nocancel \
                         --backtitle "$BACKTITLE" \
-                        --title "Core System" \
-                        --menu "Select a core system task:" \
+                        --title "Misc Settings" \
+                        --menu "Select one of the following options:" \
                         $HEIGHT $WIDTH $CHOICE_HEIGHT \
                         "${MISC_SETTINGS_OPTIONS[@]}" \
                         2>&1 >/dev/tty)

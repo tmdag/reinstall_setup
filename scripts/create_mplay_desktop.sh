@@ -45,7 +45,6 @@ add_mplay_app(){
 		echo "Failed to create desktop entry for Mplay."
 	fi
 
-
 	# Add mplay to /usr/local/bin/mplay
 	if sudo ln -sf "$MPLAY_DIR" /usr/local/bin/mplay; then
 		echo "Symlink for mplay created successfully."

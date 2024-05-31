@@ -1,60 +1,94 @@
 #!/bin/bash
 
-install_all_gfx() {
-    notify "Installing all graphics applications"
-    install_image_converters
-    install_AudioVideo_apps
-    install_obs_studio
-    install_darktable
-    install_blender
-    install_usd_opencv
-    install_nonwayland_apps
-
-    notify "All graphics applications installation complete"
-}
 
 install_image_converters() {
-    notify "Installing ImageMagick, GraphicsMagick, gifsicle"
-    sudo dnf install ImageMagick.x86_64 GraphicsMagick.x86_64 gifsicle.x86_64 -y
-
-    notify "Image converters and apps complete"
+    clear
+    log_action "Installing ImageMagick, GraphicsMagick, gifsicle"
+    sudo dnf install ImageMagick.x86_64 GraphicsMagick.x86_64 gifsicle.x86_64 -y &>> $LOG_FILE
+    log_action "Image converters and apps complete"
 }
 
-install_AudioVideo_apps() {
-    notify "Installing Gimp"
-    sudo dnf install gimp.x86_64 -y
-
-    notify "Installation of audio/video apps complete"
+install_Gimp() {
+    clear
+    log_action "Installing Gimp"
+    sudo dnf install gimp.x86_64 -y &>> $LOG_FILE
+    log_action "Installation of Gimp complete"
 }
 
 install_obs_studio() {
-    notify "Installing OBS Studio"
-    sudo dnf install obs-studio.x86_64 -y
-
-    notify "OBS Studio installation complete"
+    clear
+    log_action "Installing OBS Studio"
+    sudo dnf install obs-studio.x86_64 -y &>> $LOG_FILE
+    log_action "OBS Studio installation complete"
 }
 
 install_darktable() {
-    notify "Installing Darktable"
-    sudo dnf install darktable.x86_64 -y
-
-    notify "Darktable installation complete"
+    clear
+    log_action "Installing Darktable"
+    sudo dnf install darktable.x86_64 -y &>> $LOG_FILE
+    log_action "Darktable installation complete"
 }
 
 install_blender() {
-    notify "Installing Blender"
-    sudo dnf install blender.x86_64 -y
-
-    notify "Blender installation complete"
+    clear
+    log_action "Installing Blender"
+    sudo dnf install blender.x86_64 -y &>> $LOG_FILE
+    log_action "Blender installation complete"
 }
 
 install_usd_opencv() {
-	sudo dnf instlal -y usd.x86_64 usd-devel.x86_64 opencv.x86_64
+    clear
+	sudo dnf instlal -y usd.x86_64 usd-devel.x86_64 opencv.x86_64 &>> $LOG_FILE
+    log_action "Installation of usd and opencv complete"
+}
+
+install_xnview(){
+    notify "Downloading and installing XnView"
+
+    URL="https://download.xnview.com/XnViewMP-linux-x64.tgz"
+    TARGET_DIR="/opt/"
+    TMP_DIR="/tmp/xnview"
+    # Create temporary directory
+    mkdir -p $TMP_DIR
+    # Download the tarball
+    wget -O $TMP_DIR/XnViewMP-linux-x64.tgz $URL &>> $LOG_FILE
+    # Extract the tarball
+    tar -xzf $TMP_DIR/XnViewMP-linux-x64.tgz -C $TMP_DIR 
+    sudo cp -r $TMP_DIR/* $TARGET_DIR
+    rm -rf $TMP_DIR
+
+    # Create .desktop file
+    sudo bash -c "cat > $DESKTOP_FILE << EOL
+    [Desktop Entry]
+    Encoding=UTF-8
+    Terminal=false
+    Exec=$TARGET_DIR/xnview.sh
+    Icon=$TARGET_DIR/xnview.png
+    Type=Application
+    Categories=Graphics;Viewer;RasterGraphics;2DGraphics;Photography;Qt;
+    StartupNotify=true
+    Name=XnView MP
+    MimeType=image/bmp;image/jpeg;image/png;image/tiff;image/gif;image/g3fax;image/pcx;image/svg+xml;image/x-compressed-xcf;image/x-fits;image/x-icon;image/x-portable-anymap;image/x-portable-bitmap;image/x-portable-graymap;image/x-portable-pixmap;image/x-psd;image/x-sgi;image/x-tga;image/x-wmf;image/x-xbitmap;image/x-xcf;image/x-xpixmap;image/x-xwindowdump;
+    X-Desktop-File-Install-Version=0.26
+    StartupWMClass=XnView
+    GenericName=Image Viewer
+    Comment=View and organize your images
+    Keywords=XnView;Image;Viewer;
+    X-Flatpak-Tags=proprietary;
+    X-Flatpak=com.xnview.XnViewMP
+    EOL"
+
+    # Update the desktop database
+    sudo update-desktop-database
+
+    # Print success message
+    notify "XnViewMP has been successfully installed to $TARGET_DIR and a desktop entry has been created."
 }
 
 install_nonwayland_apps() {
+    clear
 	if [ "$XDG_SESSION_TYPE" != "wayland" ]; then
-		notify "installing peek and flameshot"
+		log_action "installing peek and flameshot"
 		sudo dnf install -y peek.x86_64 flameshot.x86_64
 		notify "Installation of audio/video apps complete"
 	else
@@ -63,63 +97,72 @@ install_nonwayland_apps() {
 }
 
 install_ffmpeg() {
-    notify "Installing RPMFusion ffmpeg"
+    clear
+    log_action "Installing RPMFusion ffmpeg"
     # Switch to full ffmpeg
-    sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+    sudo dnf swap ffmpeg-free ffmpeg --allowerasing &>> $LOG_FILE
 
     # Install additional codec
-    sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-    sudo dnf update @sound-and-video
+    sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin &>> $LOG_FILE
+    sudo dnf update @sound-and-video &>> $LOG_FILE
 
     # Hardware Accelerated Codec
-    sudo dnf install intel-media-driver
+    sudo dnf install intel-media-driver &>> $LOG_FILE
 
     #Hardware codecs with NVIDIA
-    sudo dnf install libva-nvidia-driver
+    sudo dnf install libva-nvidia-driver &>> $LOG_FILE
     notify "All done"
 }
 
-
-
-# Options for the Core System submenu
-GFX_SOFTWARE_OPTIONS=(
-    1 "Install all gfx"
-    2 "Install image converters"
-    3 "Install AudioVideo apps"
-    4 "Install obs studio"
-    5 "Install darktable"
-    6 "Install blender"
-    7 "Install usd opencv"
-    8 "Install non-Wayland apps"
-    9 "Install ffmpeg"
-    10 "Back to Main Menu"
-)
+install_selected_gfx_software() {
+    local selections=("$@")
+    for selection in "${selections[@]}"; do
+        case $selection in
+            1) install_image_converters ;;
+            2) install_Gimp ;;
+            3) install_obs_studio ;;
+            4) install_darktable ;;
+            5) install_blender ;;
+            6) install_usd_opencv ;;
+            7) install_xnview ;;
+            8) install_nonwayland_apps ;;
+            9) install_ffmpeg ;;
+            *) log_action "Invalid selection: $selection" ;;
+        esac
+    done
+    notify "Selected software installation complete!"
+}
 
 # Function to display the Core System submenu
 install_gfx_software() {
     while true; do
-        CORE_CHOICE=$(dialog --clear \
-                        --backtitle "$BACKTITLE" \
-                        --title "Core System" \
-                        --menu "Select a core system task:" \
-                        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                        "${GFX_SOFTWARE_OPTIONS[@]}" \
-                        2>&1 >/dev/tty)
+        local selections
+        selections=$(dialog --clear \
+                    --ok-label "install selected" --cancel-label "Back" \
+                    --backtitle "$BACKTITLE" \
+                    --title "Graphical software installation" \
+                    --checklist "Select software to be installed:" \
+                    20 80 10 \
+                    1 "image converters     [ ImageMagick, GraphicsMagick, gifsicle     ]" ON \
+                    2 "Gimp                 [ drawing software                          ]" ON \
+                    3 "obs studio           [ streamign and recording                   ]" ON \
+                    4 "darktable            [ Photo editing software                    ]" ON \
+                    5 "blender              [ 3D Software                               ]" ON \
+                    6 "usd opencv           [ usd, usd-devel, opencv                    ]" ON \
+                    7 "XnView               [ fast image viewer                         ]" ON \
+                    8 "non-Wayland apps     [ peek, flameshot                           ]" ON \
+                    9 "ffmpeg               [ RPM Fusion ffmpeg with codecs             ]" ON \
+                    3>&1 1>&2 2>&3)
 
-        clear
-        case $CORE_CHOICE in
-            1) install_all_gfx ;;
-            2) install_image_converters ;;
-            3) install_AudioVideo_apps ;;
-            4) install_obs_studio ;;
-            5) install_darktable ;;
-            6) install_blender ;;
-            7) install_usd_opencv ;;
-            8) install_nonwayland_apps ;;
-            9) install_ffmpeg ;;
-            10) break ;;
-            *) log_action "Invalid option selected: $CORE_CHOICE";;
-        esac
+        exit_status=$?
+
+        if [ $exit_status -ne 0 ]; then
+            break
+        fi
+
+        selections=($(echo $selections | tr -d '"'))
+        log_action "Selected options: ${selections[*]}"
+        install_selected_gfx_software "${selections[@]}"
     done
 }
 

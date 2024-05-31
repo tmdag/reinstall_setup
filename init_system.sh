@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Log file
+LOG_FILE="setup_log.txt"
+
 # Set PATH
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
 
@@ -9,18 +12,14 @@ WIDTH=90
 CHOICE_HEIGHT=10
 
 # Titles and messages
-BACKTITLE="Post install system setup THE VFX Mentor"
-TITLE="Please Make a Selection"
-MENU="Please Choose one of the following options:"
-
-# Log file
-LOG_FILE="setup_log.txt"
+BACKTITLE="Setting up you fedora system"
 
 # Log function
 log_action() {
     local message=$1
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $message" | tee -a $LOG_FILE
 }
+log_action " --- APP Starting ---"
 
 # Function to display notifications
 notify() {
@@ -29,14 +28,24 @@ notify() {
     if command -v notify-send &>/dev/null; then
         notify-send "$message" --expire-time="$expire_time"
     fi
+    dialog --backtitle "$BACKTITLE" --msgbox "$message" 10 120
     log_action "$message"
 }
 
+# Check if the script is run with sudo
+if [[ $EUID -ne 0 ]]; then
+   echo -e "This script purpose is to install and set up system tools, therefore it requires root password.\n\nPlease enter your password:"
+   exec sudo "$0" "$@"
+   exit 1
+fi
+
 # Check for dialog installation
 if ! rpm -q dialog &>/dev/null; then
-    sudo dnf install -y dialog || { log_action "Failed to install dialog. Exiting."; exit 1; }
-    log_action "Installed dialog."
+    log_action "dialog missing on the system, installing ... "
+    sudo dnf install -y dialog dialog mc || { log_action "Failed to install dialog. Exiting."; exit 1; }
+    log_action "Installed dialog and midnight commander."
 fi
+
 
 # Source external scripts
 source ./scripts/system_core.sh
@@ -47,19 +56,21 @@ source ./scripts/misc_settings.sh
 source ./scripts/dnf_packages.sh
 source ./scripts/flatpacks.sh
 source ./pesonal/personal_setups.sh
+source ./scripts/utilities.sh
 
 
 # Options for the main menu
 MAIN_OPTIONS=(
-    1 "Core System"
-    2 "Install GFX Software"
-    3 "Install Additional Software"
-    4 "Gnome settings"
-    5 "Misc settings"
-    6 "Custom DNF packages"
-    7 "Custom Flatpack packages"
-    8 "Personal setups"
-    9 "Quit"
+    1 "Core System                  [ Nvidia, CUDA drivers            ]"
+    2 "Install GFX Software         [ Gimp, Blender etc               ]"
+    3 "Install Additional Software  [ VS Code, Sublime, Chrome etc.   ]"
+    4 "Gnome settings               [ window buttons, dpi etc.        ]"
+    5 "Misc settings                [ MPlay desktop                   ]"
+    6 "Custom DNF packages          [ from dnf-packages.txt           ]"
+    7 "Custom Flatpack packages     [ from flatpak-packages.txt       ]"
+    8 "Personal setups              [ Specific for my configuration   ]"
+    9 "Utilities                    [ Check log file, browse mc       ]"
+    10 "Quit"
 )
 
 main_function(){
@@ -67,9 +78,9 @@ main_function(){
     while true; do
         CHOICE=$(dialog --clear \
                     --backtitle "$BACKTITLE" \
-                    --title "$TITLE" \
+                    --title "Please Make a Selection" \
                     --nocancel \
-                    --menu "$MENU" \
+                    --menu "Please Choose one of the following options:" \
                     $HEIGHT $WIDTH $CHOICE_HEIGHT \
                     "${MAIN_OPTIONS[@]}" \
                     2>&1 >/dev/tty)
@@ -84,7 +95,8 @@ main_function(){
             6) custom_dnf_packages ;;
             7) custom_flatpack_packages ;;
             8) personal_setups ;;
-            9) log_action "User chose to quit the script."; exit 0 ;;
+            9) utilitiy_tools ;;
+            10) log_action "User chose to quit the script."; exit 0 ;;
             *) log_action "Invalid option selected: $CHOICE";;
         esac
     done

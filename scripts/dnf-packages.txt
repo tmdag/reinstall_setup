@@ -15,8 +15,10 @@
 @fedora libwebp-tools
 @fedora libxcrypt-compat
 @fedora lm_sensors
+@fedora mc
 @fedora mesa-libGLU
 @fedora mosquitto
+@fedora newt
 @fedora nvtop
 @fedora oddjob
 @fedora oddjob-mkhomedir
@@ -40,6 +42,8 @@
 @updates aajohan-comfortaa-fonts
 @updates audacity
 @updates blender
+@updates borgbackup
+@updates btop
 @updates community-mysql
 @updates conda
 @updates darktable
@@ -55,7 +59,6 @@
 @updates gparted
 @updates gtk4-devel
 @updates gwenview
-@updates btop
 @updates htop
 @updates libva-nvidia-driver
 @updates mesa-va-drivers
