@@ -6,7 +6,9 @@ You know the feeling when you have to re-install your system because something b
 Inside `/scripts/submenu_template.sh` there is a template example of how to create a simple submenu tailored to your needs.
 
 Inspired by [fedorable](https://github.com/smittix/fedorable), initially forked but then I re-wrote most of it for own needs.
-<p align="center"><img src="../../wiki/images/hero_screenshot.png" alt="main_screenshot" /></p>
+<p align="center"><img src="../../wiki/images/hero_screenshot.png" alt="main_screenshot" />
+</p>
+
 ## Usage
 For detailed instructions, please check out the project [WIKI page](../../wiki).
 
