@@ -10,8 +10,6 @@ source ./create_mplay_desktop.sh
 
 
 
-
-
 # Options for the Core System submenu
 MISC_SETTINGS_OPTIONS=(
     1 "Add SideFX mplay to desktop       [ Finds Houdini in /opt/hfs and links mplay ]"

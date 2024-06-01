@@ -68,7 +68,7 @@ display_dnf_package_list_file(){
     if [ -f "$dnf_package_list_file" ]; then
         dialog --title "Contents of $dnf_package_list_file" --textbox "$dnf_package_list_file" 40 90
     else
-        dialog --title "Info" --msgbox "The file $dnf_package_list_file does not exist." 10 20
+        notify "The file $dnf_package_list_file does not exist." 
     fi
 }
 

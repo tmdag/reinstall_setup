@@ -1,59 +1,74 @@
 #!/bin/bash
 
-setup_gnome_settings(){
-    clear
-	log_action "Turn on recruisive search"
-	gsettings set org.gnome.nautilus.preferences recursive-search 'always'
-
-	log_action "Changing clock to 24h format"
-	gsettings set org.gnome.desktop.interface clock-format '24h'
-	gsettings set org.gnome.desktop.interface clock-show-date true
-	gsettings set org.gnome.desktop.interface clock-show-seconds false
-
-	log_action "Enables battery percentage"
-	gsettings set org.gnome.desktop.interface show-battery-percentage true
-
-	log_action "Enable window buttons"
-	gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
-
-	log_action "Fractional Scaling - THIS IS EXPERIMENTAL"
-	gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
-
-	notify  "gnome settings setup complete"
+# Individual functions for each setting
+setup_recursive_search(){
+    log_action "Turn on recursive search"
+    gsettings set org.gnome.nautilus.preferences recursive-search 'always'
 }
 
-install_additional_gnome(){
-    clear
-    log_action "installing gnome tweaks and extension manager"
-	sudo dnf install -y gnome-tweaks gnome-extensions-app &>> $LOG_FILE
-    notify "installation of Gnome extensions and tweaks complete"
+setup_clock_24h(){
+    log_action "Changing clock to 24h format"
+    gsettings set org.gnome.desktop.interface clock-format '24h'
+    gsettings set org.gnome.desktop.interface clock-show-date true
+    gsettings set org.gnome.desktop.interface clock-show-seconds false
 }
 
+enable_battery_percentage(){
+    log_action "Enables battery percentage"
+    gsettings set org.gnome.desktop.interface show-battery-percentage true
+}
 
-# Options for the Core System submenu
-GNOME_SETTINGS_OPTIONS=(
-    1 "Setup Gnome settings              [recruisive search, 24h clock, battery %, window buttons, DPI scalling]"
-    2 "Install Gnome extension managers  [gnome-tweaks, gnome-extension manager]"
-    3 "Back to Main Menu"
-)
+enable_window_buttons(){
+    log_action "Enable window buttons"
+    gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+}
 
-# Function to display the Core System submenu
-gnome_settings() {
-    while true; do
-        CORE_CHOICE=$(dialog --clear --nocancel \
-                        --backtitle "$BACKTITLE" \
-                        --title "Gnome settings" \
-                        --menu "Select task to perform:" \
-                        $HEIGHT $WIDTH $CHOICE_HEIGHT \
-                        "${GNOME_SETTINGS_OPTIONS[@]}" \
-                        2>&1 >/dev/tty)
+setup_fractional_scaling(){
+    log_action "Fractional Scaling - THIS IS EXPERIMENTAL"
+    gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+}
 
-        clear
-        case $CORE_CHOICE in
-            1) setup_gnome_settings ;;
-            2) install_additional_gnome ;;
-            3) break ;;
-            *) log_action "Invalid option selected: $CORE_CHOICE";;
+apply_selected_gnome_settings() {
+    local selections=("$@")
+    for selection in "${selections[@]}"; do
+        case $selection in
+            1) setup_recursive_search ;;
+            2) setup_clock_24h ;;
+            3) enable_battery_percentage ;;
+            4) enable_window_buttons ;;
+            5) setup_fractional_scaling ;;
+            *) log_action "Invalid selection: $selection" ;;
         esac
     done
+    notify "Selected Gnome settings applied!"
 }
+
+# Function to display the Gnome settings submenu
+gnome_settings() {
+    while true; do
+        local selections
+        selections=$(dialog --clear \
+                    --ok-label "Apply selected" --cancel-label "Back" \
+                    --backtitle "$BACKTITLE" \
+                    --title "GNOME settings" \
+                    --checklist "Select settings to apply:" \
+                    20 80 10 \
+                    1 "Turn on recursive search" ON \
+                    2 "Change clock to 24h format" ON \
+                    3 "Enable battery percentage" ON \
+                    4 "Enable window buttons" ON \
+                    5 "Enable fractional scaling" ON \
+                    3>&1 1>&2 2>&3)
+
+        exit_status=$?
+
+        if [ $exit_status -ne 0 ]; then
+            break
+        fi
+
+        selections=($(echo $selections | tr -d '"'))
+        log_action "Selected options: ${selections[*]}"
+        apply_selected_gnome_settings "${selections[@]}"
+    done
+}
+

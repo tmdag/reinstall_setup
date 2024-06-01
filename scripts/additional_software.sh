@@ -110,11 +110,18 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub"
     log_action "Installation of Google Chrome complete!"
 }
 
+install_wireguard() {
+    clear
+    log_action "Installing !ireguard"
+    sudo dnf install -y wireguard &>> $LOG_FILE
+    log_action "Installation fo wireguard complete"
+}
+
 
 install_audacity() {
     clear
     log_action "Installing Audacity"
-    sudo dnf install -y audacity.x86_64 &>> $LOG_FILE
+    sudo dnf install -y audacity &>> $LOG_FILE
     log_action "Installation fo Audacity complete"
 }
 
