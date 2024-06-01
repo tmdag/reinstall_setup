@@ -42,7 +42,7 @@ notify() {
 # Check for dialog installation
 if ! rpm -q dialog &>/dev/null; then
     log_action "dialog missing on the system, installing ... "
-    sudo dnf install -y dialog dialog mc || { log_action "Failed to install dialog. Exiting."; exit 1; }
+    sudo dnf install -y dialog mc || { log_action "Failed to install dialog. Exiting."; exit 1; }
     log_action "Installed dialog and midnight commander."
 fi
 

@@ -22,7 +22,13 @@ clear_log_file(){
 
 open_mc(){
     log_action "opening midnight commander ..."
-	clear
+    clear
+    # Check for MC installation
+    if ! rpm -q mc &>/dev/null; then
+        log_action "Midnight commander missing on the system, installing ... "
+        sudo dnf install -y mc || { log_action "Failed to install mc. Exiting."; exit 1; }
+        log_action "Installed midnight commander."
+    fi
 	mc
 }
 
