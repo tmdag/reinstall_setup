@@ -20,9 +20,9 @@ For detailed instructions, please check out the project [WIKI page](../../wiki).
 
 ## Files
 For detailed instructions on how to use these, please refer to the project [WIKI page](../../wiki/Package-and-Extension-files).
-- **flatpak-packages.txt**: Contains a list of all flatpak packages to install. Customize this manually or via the app.[More info](../../wiki/Package-and-Extension-files#dnf-package-list)
-- **dnf-packages.txt**: Contains a list of all applications to be installed in the format of "@repository package_name".[More info](../../wiki/Package-and-Extension-files#flatpak-package-list)
-- **gnome-extensions.txt**: Contains a list of all GNOME extensions to be installed on your system.[More info](../../wiki/Package-and-Extension-files#gnome-extension-package-list)
+- **flatpak-packages.txt**: Contains a list of all flatpak packages to install. [Read More](../../wiki/Package-and-Extension-files#dnf-package-list)
+- **dnf-packages.txt**: Contains a list of all dnf applications to be installed. [Read More](../../wiki/Package-and-Extension-files#flatpak-package-list)
+- **gnome-extensions.txt**: Contains a list of all GNOME extensions to be installed on your system. [Read more](../../wiki/Package-and-Extension-files#gnome-extension-package-list)
 
 ![Screenshot](../../wiki/images/hero_screenshot.png)
 
