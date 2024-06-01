@@ -11,23 +11,23 @@ Inspired by [fedorable](https://github.com/smittix/fedorable), initially forked 
 For detailed instructions, please check out the project [WIKI page](../../wiki).
 
 ## Features
-- Store current user dnf/flatpak package list
-- Install dnf/flatpak packages from the list
-- Edit and choose dnf/flatpak package list file
+- Store current user dnf/flatpak/gnome extensions package list
+- Install dnf/flatpak/gnome extensions packages from the list
+- Edit and choose dnf/flatpak/gnome extensions package list file
 - Install non-dnf packages and their repos (e.g., Google Chrome, VSCode, Sublime)
 - Easy way to view logs
 - Provided template for easy submenu creation
 
 ## Files
-For detailed instructions on how to use these, please refer to the project [WIKI page](../../wiki).
-- **flatpak-packages.txt**: Contains a list of all flatpak packages to install. Customize this manually or via the app.
-- **dnf-packages.txt**: Contains a list of all applications to be installed in the format of "@repository package_name".
-- **gnome-extensions.txt**: Contains a list of all GNOME extensions to be installed on your system.
+For detailed instructions on how to use these, please refer to the project [WIKI page](../../wiki/Package-and-Extension-files).
+- **flatpak-packages.txt**: Contains a list of all flatpak packages to install. Customize this manually or via the app.[More info](../../wiki/Package-and-Extension-files#dnf-package-list)
+- **dnf-packages.txt**: Contains a list of all applications to be installed in the format of "@repository package_name".[More info](../../wiki/Package-and-Extension-files#flatpak-package-list)
+- **gnome-extensions.txt**: Contains a list of all GNOME extensions to be installed on your system.[More info](../../wiki/Package-and-Extension-files#gnome-extension-package-list)
 
 ![Screenshot](../../wiki/images/hero_screenshot.png)
 
 ## Installation
-For installation instructions, please check out the project [WIKI page](../../wiki).
+For installation instructions, please check out the project [WIKI page](../../wiki/Installation-and-Setup).
 
 Navigate to the folder where you want to download this script:
 
