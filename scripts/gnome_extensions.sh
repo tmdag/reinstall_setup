@@ -136,12 +136,12 @@ choose_gnome_extensions_list_file() {
 ################################################################################################
 # Menu options
 GNOME_SETTINGS_OPTIONS=(
-    1 "Install extension managers          [ gnome-tweaks, gnome-extension manager ]"
-    2 "Install extensions from list        [ install all extensions from list ]"
-    3 "Update extensions list              [ add currently installed extensions to the list ]"
-    4 "Display content of extensions list  [ display contents of GNOME extensions list file ]"
-    5 "Edit extensions list file           [ edit contents of GNOME extensions list file ]"
-    6 "Choose extensions list file         [ choose custom GNOME extensions list file ]"
+    1 "Install extension managers          [ gnome-tweaks, gnome-extension manager    ]"
+    2 "Install extensions from list        [ install all extensions from list         ]"
+    3 "Update extensions list              [ add installed extensions to the list     ]"
+    4 "Display content of extensions list  [ display contents extensions list file    ]"
+    5 "Edit extensions list file           [ edit  extensions list file               ]"
+    6 "Choose extensions list file         [ choose custom extensions list file       ]"
     7 "Back to Main Menu"
 )
 

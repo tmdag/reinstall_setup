@@ -11,7 +11,7 @@ Inspired by [fedorable](https://github.com/smittix/fedorable), intially forked b
 ## Usage
 1. Set the script to be executable `chmod -x init_system.sh`
 2. Run the script `./init_system.sh`
-3. Enter user password.
+3. Enter user password when prompted
 
 ## Features:
 - Store current user dnf/flatpak package list
@@ -27,8 +27,9 @@ Inspired by [fedorable](https://github.com/smittix/fedorable), intially forked b
 - **dnf-packages.txt** - This file contains a list of all applications that will be installed in a format of "@repository package_name".
 
 ## Screenshot
-![Screenshot](screenshot_main_menu.png)
-![Screenshot](screenshot_gfx_software.png)
-![Screenshot](screenshot_dnf_package.png)
-![Screenshot](screenshot_file_edit.png)
-![Screenshot](screenshot_utilities.png)
+![Screenshot](screenshots/main_menu.png)
+![Screenshot](screenshots/gfx_software.png)
+![Screenshot](screenshots/dnf_package.png)
+![Screenshot](screenshots/file_edit.png)
+![Screenshot](screenshots/extensions.png)
+![Screenshot](screenshots/utilities.png)
