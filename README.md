@@ -9,7 +9,7 @@ Inside /scripts/submenu_template.sh there is a template example how to create si
 Inspired by [fedorable](https://github.com/smittix/fedorable), intially forked but then, I have created own version from scratch.
 
 ## Usage
-Please check out project [WIKI page](/wiki)
+Please check out project [WIKI page](../../wiki)
 
 ## Features:
 - Store current user dnf/flatpak package list
@@ -20,12 +20,12 @@ Please check out project [WIKI page](/wiki)
 - provided template for easy sub-menu creation
 
 ## Files
-For detailed instructions on how to use those, please reffer to project [WIKI page](/wiki)
+For detailed instructions on how to use those, please reffer to project [WIKI page](../../wiki)
 - **flatpak-packages.txt** - This file contains a list of all flat packages to install you can customise this manually or directly via app.
 - **dnf-packages.txt** - This file contains a list of all applications that will be installed in a format of "@repository package_name".
 - **gnome-extensions.txt** - This file contains a list of all gnome extensions to be installed on your system".
 
-![Screenshot](wiki/images/hero_screenshot.png)
+![Screenshot](../../wiki/images/hero_screenshot.png)
 
 
 ![Screenshot](screenshots/gfx_software.png)
