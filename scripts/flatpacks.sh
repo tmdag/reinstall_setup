@@ -5,7 +5,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define the output file relative to the script directory
-flatpak_list_file="$SCRIPT_DIR/flatpak-packages.txt"
+flatpak_list_file="$SCRIPT_DIR/../flatpak-packages.txt"
 
 
 check_for_flatpack() {

@@ -33,11 +33,11 @@ notify() {
 }
 
 # Check if the script is run with sudo
-if [[ $EUID -ne 0 ]]; then
-   echo -e "This script purpose is to install and set up system tools, therefore it requires root password.\n\nPlease enter your password:"
-   exec sudo "$0" "$@"
-   exit 1
-fi
+# if [[ $EUID -ne 0 ]]; then
+#    echo -e "This script purpose is to install and set up system tools, therefore it requires root password.\n\nPlease enter your password:"
+#    exec sudo "$0" "$@"
+#    exit 1
+# fi
 
 # Check for dialog installation
 if ! rpm -q dialog &>/dev/null; then
@@ -52,6 +52,7 @@ source ./scripts/system_core.sh
 source ./scripts/graphical_software.sh
 source ./scripts/additional_software.sh
 source ./scripts/gnome_settings.sh
+source ./scripts/gnome_extensions.sh
 source ./scripts/misc_settings.sh
 source ./scripts/dnf_packages.sh
 source ./scripts/flatpacks.sh
@@ -65,12 +66,13 @@ MAIN_OPTIONS=(
     2 "Install GFX Software         [ Gimp, Blender etc               ]"
     3 "Install Additional Software  [ VS Code, Sublime, Chrome etc.   ]"
     4 "Gnome settings               [ window buttons, dpi etc.        ]"
-    5 "Misc settings                [ MPlay desktop                   ]"
-    6 "Custom DNF packages          [ from dnf-packages.txt           ]"
-    7 "Custom Flatpack packages     [ from flatpak-packages.txt       ]"
-    8 "Personal setups              [ Specific for my configuration   ]"
-    9 "Utilities                    [ Check log file, browse mc       ]"
-    10 "Quit"
+    5 "Gnome extensions             [ Install Gnome Extensions        ]"
+    6 "Misc settings                [ MPlay desktop                   ]"
+    7 "Custom DNF packages          [ from dnf-packages.txt           ]"
+    8 "Custom Flatpack packages     [ from flatpak-packages.txt       ]"
+    9 "Personal setups              [ Specific for my configuration   ]"
+    10 "Utilities                    [ Check log file, browse mc       ]"
+    11 "Quit"
 )
 
 main_function(){
@@ -91,12 +93,13 @@ main_function(){
             2) install_gfx_software;;
             3) install_additional_software ;;
             4) gnome_settings ;;
-            5) misc_settings ;;
-            6) custom_dnf_packages ;;
-            7) custom_flatpack_packages ;;
-            8) personal_setups ;;
-            9) utilitiy_tools ;;
-            10) log_action "User chose to quit the script."; exit 0 ;;
+            5) gnome_extensions_menu ;;
+            6) misc_settings ;;
+            7) custom_dnf_packages ;;
+            8) custom_flatpack_packages ;;
+            9) personal_setups ;;
+            10) utilitiy_tools ;;
+            11) log_action "User chose to quit the script."; exit 0 ;;
             *) log_action "Invalid option selected: $CHOICE";;
         esac
     done

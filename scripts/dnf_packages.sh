@@ -5,7 +5,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define the output file relative to the script directory
-dnf_package_list_file="$SCRIPT_DIR/dnf-packages.txt"
+dnf_package_list_file="$SCRIPT_DIR/../dnf-packages.txt"
 
 
 update_dnf_package_list(){

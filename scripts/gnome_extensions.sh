@@ -4,7 +4,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Define the output file relative to the script directory
-gnome_extensions_list_file="$SCRIPT_DIR/gnome-extensions.txt"
+gnome_extensions_list_file="$SCRIPT_DIR/../gnome-extensions.txt"
 
 install_additional_gnome(){
     clear
