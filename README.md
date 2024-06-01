@@ -5,10 +5,18 @@ You know the feeling when you have to re-install your system because something b
 
 Inside `/scripts/submenu_template.sh` there is a template example of how to create a simple submenu tailored to your needs.
 
-Inspired by [fedorable](https://github.com/smittix/fedorable), initially forked but then created my own version from scratch.
+Inspired by [fedorable](https://github.com/smittix/fedorable), initially forked but then I re-wrote most of it for own needs.
+
+<p align="center">
+  <img src="../../wiki/images/hero_screenshot.png" alt="main_screenshot" />
+</p>
 
 ## Usage
 For detailed instructions, please check out the project [WIKI page](../../wiki).
+Start by running `init_system.sh` script.
+```bash
+./init_system.sh
+```
 
 ## Features
 - Store current user dnf/flatpak/gnome extensions package list
@@ -24,13 +32,10 @@ For detailed instructions on how to use these, please refer to the project [WIKI
 - **dnf-packages.txt**: Contains a list of all dnf applications to be installed. [Read More](../../wiki/Package-and-Extension-files#flatpak-package-list)
 - **gnome-extensions.txt**: Contains a list of all GNOME extensions to be installed on your system. [Read more](../../wiki/Package-and-Extension-files#gnome-extension-package-list)
 
-![Screenshot](../../wiki/images/hero_screenshot.png)
-
 ## Installation
 For installation instructions, please check out the project [WIKI page](../../wiki/Installation-and-Setup).
 
 Navigate to the folder where you want to download this script:
-
 ```bash
 cd ~/Downloads
 git clone git@github.com:tmdag/reinstall_setup.git
