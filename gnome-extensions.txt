@@ -5,5 +5,4 @@ dash-to-panel@jderose9.github.com
 apps-menu@gnome-shell-extensions.gcampax.github.com
 appindicatorsupport@rgcjonas.gmail.com
 freon@UshakovVasilii_Github.yahoo.com
-clipboard-sanitizer@tmdag.github.com
 background-logo@fedorahosted.org

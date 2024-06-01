@@ -118,7 +118,7 @@ FLATPACK_OPTIONS=(
     1 "Enable flatpack                   [ Enable Flatpack on the system               ]"
     2 "Display content of packages list  [ Display contents of flatpak-packages.txt    ]"
     3 "Install flatpacks from list       [ Install apps from flatpak-packages.txt list ]"
-    4 "Store installed flatpacks to list [ Auto update list from currently installed   ]"
+    4 "Update Flatpak package list       [ Auto update list from currently installed   ]"
     5 "Edit flatpack list file           [ Edit contents of flatpak-packages.txt       ]"
     6 "Choose flatpack list file         [ Choose custom flatpack package list file    ]"
     7 "Back to Main Menu"
