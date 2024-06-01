@@ -28,9 +28,9 @@ For detailed instructions on how to use those, please reffer to project [WIKI pa
 ![Screenshot](../../wiki/images/hero_screenshot.png)
 
 
-![Screenshot](screenshots/gfx_software.png)
-![Screenshot](screenshots/dnf_package.png)
-![Screenshot](screenshots/file_edit.png)
-![Screenshot](screenshots/extensions.png)
-![Screenshot](screenshots/utilities.png)
+![Screenshot](../../wiki/images/gfx_software.png)
+![Screenshot](../../wiki/images/dnf_package.png)
+![Screenshot](../../wiki/images/file_edit.png)
+![Screenshot](../../wiki/images/extensions.png)
+![Screenshot](../../wiki/images/utilities.png)
 
