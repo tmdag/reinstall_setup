@@ -38,6 +38,8 @@ Navigate to the folder where you want to download this script:
 ```bash
 cd ~/Downloads
 git clone git@github.com:tmdag/reinstall_setup.git
+cd reinstall_setup
+./init_system.sh
 ```
 ### Screenshots
 ![Screenshot](../../wiki/images/gfx_software.png)
