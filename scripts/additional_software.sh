@@ -112,11 +112,10 @@ gpgkey=https://dl.google.com/linux/linux_signing_key.pub"
 
 install_wireguard() {
     clear
-    log_action "Installing !ireguard"
+    log_action "Installing Wireguard"
     sudo dnf install -y wireguard &>> $LOG_FILE
     log_action "Installation fo wireguard complete"
 }
-
 
 install_audacity() {
     clear
@@ -148,9 +147,10 @@ install_selected_packages() {
             2) install_sublime_text ;;
             3) install_vscode ;;
             4) install_google_chrome ;;
-            5) install_audacity ;;
-            6) install_vorta_borg_backup ;;
-            7) install_system_tools ;;
+            5) install_wireguard ;;
+            6) install_audacity ;;
+            7) install_vorta_borg_backup ;;
+            8) install_system_tools ;;
         esac
     done
     notify "Selected software installation complete!"
@@ -171,9 +171,10 @@ install_additional_software() {
                     2 "Sublime Text             " on \
                     3 "Visual Studio Code       " on \
                     4 "Google Chrome            " on \
-                    5 "Audacity                 " on \
-                    6 "Vorta Borg Backup        [UI for Borg Backup system]" on \
-                    7 "System Tools             [btop, nvtop, htop, tree, gparted, conda]" on \
+                    5 "Wireguard                " on \
+                    6 "Audacity                 " on \
+                    7 "Vorta Borg Backup        [UI for Borg Backup system]" on \
+                    8 "System Tools             [btop, nvtop, htop, tree, gparted, conda]" on \
                     3>&1 1>&2 2>&3 3>&-)
 
         exit_status=$?
