@@ -70,7 +70,7 @@ save_wireguard_config() {
 apply_wireguard_config() {
     local config_file
 
-    config_file=$(dialog --stdout --title "Select WireGuard Configuration" --fselect "$SCRIPT_DIR/../personal/" 14 48)
+    config_file=$(dialog --stdout --title "Select WireGuard Configuration" --fselect "$SCRIPT_DIR/../personal/wireguard.conf" 60 120)
     if [[ -z "$config_file" ]]; then
         notify "No configuration file selected."
         return 1
@@ -82,7 +82,7 @@ apply_wireguard_config() {
     fi
 
     log_action "Applying WireGuard configuration: $config_file"
-    sudo wg-quick up "$config_file"
+    sudo wg-quick up "$config_file" &>> $LOG_FILE
 
     if [[ $? -eq 0 ]]; then
         notify "WireGuard configuration applied successfully."
