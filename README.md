@@ -16,7 +16,6 @@ Start by running `init_system.sh` script.
 ```bash
 $ ./init_system.sh
 ```
-
 ## Features
 - Store current user dnf/flatpak/gnome extensions package list
 - Install dnf/flatpak/gnome extensions packages from the list
@@ -41,6 +40,68 @@ git clone git@github.com:tmdag/reinstall_setup.git
 cd reinstall_setup
 ./init_system.sh
 ```
+## Full Feature list
+# Core System:
+- Install RPM Nvidia drivers
+- Install RPM CUDA drivers
+- set dnf paraller downloads
+
+# Install GFX Software:
+- install image_converters
+- install Gimp
+- install obs_studio
+- install darktable
+- install blender
+- install usd_opencv
+- install xnview
+- install nonwayland_apps
+- install ffmpeg
+
+# Gnome Settings:
+- set-up recursive search
+- set-up clock 24h
+- enable battery percentage
+- enable window buttons
+- set-up fractional scaling
+- set-up 'program not responding' timeout
+
+# Gnome Extensions:
+- Install gnome-tweaks, gnome-extensions
+- Install extensions from gnome-extensions.txt
+- Update gnome-extensions.txt
+- Display content of gnome-extensions.txt
+- Edit gnome-extensions.txt
+- Choose custom list file
+
+# Misc settings:
+- Add SideFX Mplay desktop icon and file assoc
+- DaVinci Resolve fix for Fedora
+- Wireguard Install/Apply/Read config
+
+# Custom DNF packages
+- Install DNF packages from dnf-packages.txt
+- Update DNF dnf-packages.txt        
+- Display content of pdnf-packages.txt
+- Edit dnf-packages.txt file              
+- Choose custom dnf list file            
+- Create auto dnf list backup     [timer. WIP]
+
+# Custom Flatpack packages
+- Enable flatpack on the system              
+- Display content of flatpak-packages.txt
+- Install flatpacks from flatpak-packages.txt 
+- Update flatpak-packages.txt list      
+- Edit fflatpak-packages.txt file          
+- Choose custom flatpack list file        
+
+# Personal setups:
+- N/A
+
+# Utilities
+- Display Log File                 
+- Clear Log File                   
+- Open Midnight Commander          
+
 ### Screenshots
 ![Screenshot](../../wiki/images/gfx_software.png)
 ![Screenshot](../../wiki/images/dnf_package.png)
