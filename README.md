@@ -41,12 +41,12 @@ cd reinstall_setup
 ./init_system.sh
 ```
 ## Full Feature list
-# Core System:
+### Core System:
 - Install RPM Nvidia drivers
 - Install RPM CUDA drivers
 - set dnf paraller downloads
 
-# Install GFX Software:
+### Install GFX Software:
 - install image_converters
 - install Gimp
 - install obs_studio
@@ -57,7 +57,7 @@ cd reinstall_setup
 - install nonwayland_apps
 - install ffmpeg
 
-# Gnome Settings:
+### Gnome Settings:
 - set-up recursive search
 - set-up clock 24h
 - enable battery percentage
@@ -65,7 +65,7 @@ cd reinstall_setup
 - set-up fractional scaling
 - set-up 'program not responding' timeout
 
-# Gnome Extensions:
+### Gnome Extensions:
 - Install gnome-tweaks, gnome-extensions
 - Install extensions from gnome-extensions.txt
 - Update gnome-extensions.txt
@@ -73,12 +73,12 @@ cd reinstall_setup
 - Edit gnome-extensions.txt
 - Choose custom list file
 
-# Misc settings:
+### Misc settings:
 - Add SideFX Mplay desktop icon and file assoc
 - DaVinci Resolve fix for Fedora
 - Wireguard Install/Apply/Read config
 
-# Custom DNF packages
+### Custom DNF packages
 - Install DNF packages from dnf-packages.txt
 - Update DNF dnf-packages.txt        
 - Display content of pdnf-packages.txt
@@ -86,7 +86,7 @@ cd reinstall_setup
 - Choose custom dnf list file            
 - Create auto dnf list backup     [timer. WIP]
 
-# Custom Flatpack packages
+### Custom Flatpack packages
 - Enable flatpack on the system              
 - Display content of flatpak-packages.txt
 - Install flatpacks from flatpak-packages.txt 
@@ -94,10 +94,10 @@ cd reinstall_setup
 - Edit fflatpak-packages.txt file          
 - Choose custom flatpack list file        
 
-# Personal setups:
+### Personal setups:
 - N/A
 
-# Utilities
+### Utilities
 - Display Log File                 
 - Clear Log File                   
 - Open Midnight Commander          
