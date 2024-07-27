@@ -1,7 +1,5 @@
 #!/bin/bash
 
-log_action "sourced wireguard_config.sh"
-
 # Get the directory of the sourced script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 

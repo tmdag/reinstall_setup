@@ -34,13 +34,43 @@ speed_up_dnf() {
     fi
 }
 
+automatic_dnf_updates() {
+    log_action "Setting up automatic dnf updates"
+    sudo dnf -y install dnf-automatic
+
+    dnf_automatic_config_file="/etc/dnf/automatic.conf"
+
+    if [ -f "$dnf_automatic_config_file" ]; then
+        dnf_auto_temp_file=$(mktemp)
+        dialog --backtitle "$BACKTITLE" --title "Manual edit $dnf_automatic_config_file" --editbox "$dnf_automatic_config_file" 60 120 2> "${dnf_auto_temp_file}"
+        
+        # Check the exit status of the dialog command
+        if [ $? -eq 0 ]; then
+            # User clicked OK, copy the temp file back to the original file
+            # Create a backup of the original file
+            log_action "dnf-automatic conf file edit confirmed. Creating backup copy: ${dnf_automatic_config_file}_back"
+            sudo cp "$dnf_automatic_config_file" "${dnf_automatic_config_file}_back"
+            sudo cp "${dnf_auto_temp_file}" "$dnf_automatic_config_file"
+        fi
+        
+        # Clean up the temporary file
+        rm "${dnf_auto_temp_file}"
+    else
+        notify "The file $dnf_automatic_config_file does not exist."
+    fi
+
+    systemctl enable --now dnf-automatic.timer
+
+    notify "Automatic DNF setup complete"
+}
 
 # Options for the Core System submenu
 CORE_SYSTEM_OPTIONS=(
     1 "Install RPM Nvidia drivers   "
     2 "Install RPM CUDA drivers     "
     3 "Speed Up DNF                 [Sets up DNF paraller downloads to 10] "
-    4 "Back to Main Menu"
+    4 "Automatic DNF updates        [Sets up automatic DNF updates       ] "
+    5 "Back to Main Menu"
 )
 
 # Function to display the Core System submenu
@@ -59,7 +89,8 @@ core_system_menu() {
             1) ask_for_kernel && install_nvidia ;;
             2) install_cuda ;;
             3) speed_up_dnf ;;
-            4) break ;;
+            4) automatic_dnf_updates ;;
+            5) break ;;
             *) log_action "Invalid option selected: $CORE_CHOICE";;
         esac
     done

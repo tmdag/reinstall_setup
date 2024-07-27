@@ -48,6 +48,7 @@ install_xnview(){
     URL="https://download.xnview.com/XnViewMP-linux-x64.tgz"
     TARGET_DIR="/opt/"
     TMP_DIR="/tmp/xnview"
+    DESKTOP_FILE="/usr/share/applications/xnview.desktop"
     # Create temporary directory
     mkdir -p $TMP_DIR
     # Download the tarball

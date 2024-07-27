@@ -56,7 +56,7 @@ source ./scripts/gnome_extensions.sh
 source ./scripts/misc_settings.sh
 source ./scripts/dnf_packages.sh
 source ./scripts/flatpacks.sh
-source ./pesonal/personal_setups.sh
+source ./personal/personal_setups.sh
 source ./scripts/utilities.sh
 
 
